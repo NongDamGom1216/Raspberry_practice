@@ -1,10 +1,8 @@
-# 녹화 기능
-
 import cv2
+from cam import Camera
 from datetime import datetime
 
-cap = cv2.VideoCapture(2)  # 카메라
-cap = cv2.VideoCapture("http://172.30.1.12:4747/video")
+cam = Camera(0) 
 
 frame_size = (640, 480)
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -29,26 +27,17 @@ def stop_record():
     vwriter = None
     print('stop recording.')
 
-while True:
-    retval, frame = cap.read()
-    if not retval: break
-
-    if vwriter:
-        vwriter.write(frame)
-
-    cv2.imshow('frame', frame)
-
-    key = cv2.waitKey(50)
+def callback(frame, key):
     if key == ord('r'):
         start_record()
     elif key == ord('s'):
         stop_record()
 
-    # 센서 연계 -> pir 센서
-    # HIGH, LOW 변경시 start_record, stop_record
+    if vwriter:
+        vwriter.write(frame)
     
-    elif key == 27:
-        break
+    return True
 
-cap.release()
-cv2.destroyAllWindows()
+cam.callback = callback
+cam.run()
+
