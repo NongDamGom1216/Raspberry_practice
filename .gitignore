@@ -1,0 +1,5 @@
+*.mp4
+OPENCV/.DS_Store
+.DS_Store
+TCP_server/__pycache__/net.cpython-39.pyc
+*.pyc

@@ -9,6 +9,8 @@ from gpiozero import MotionSensor
 from openapi import upload
 import cv2
 from datetime import datetime
+from threading import Thread
+from threading import Timer
 
 pir = MotionSensor(18)
 cam = Camera(0)
@@ -20,16 +22,35 @@ def stop_record():
     # stop 시에 여러 작업을 해야 함으로 함수 생성
     file_path = recorder.stop()
 
-    result = upload(url, file_path)
-
-    if result:
-        print('upload success')
-    else:  
-        print('upload fail')
+    # 스레드 사용
+    t = Thread(target=upload, args=(url, file_path))
+    t.start()
 
 
-pir.when_motion = recorder.start # () 안들어감
-pir.when_no_motion = stop_record
+    # result = upload(url, file_path)
+
+    # if result:
+    #     print('upload success')
+    # else:  
+    #     print('upload fail')
+
+
+# pir.when_motion = recorder.start # 타이머 사용 안할 경우
+# pir.when_no_motion = stop_record
+
+def start_record(): # 타이머 사용을 위한 함수 정의
+    global timer
+
+    if recorder.state:
+        timer.cancel()
+    else: # 처음 기동
+        recorder.start()
+    # 동작이 없으면 5초 뒤에 녹화 종료
+    timer = Timer(5, stop_record)
+    timer.start()
+
+pir.when_motion = start_record
+
 
 
 def callback(frame, key):
