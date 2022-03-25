@@ -5,7 +5,7 @@ import json
 import requests
 from django.contrib import messages
 
-client_id = "91993241356264156056f235e6563db3"
+client_id = "YOUT REST API KEY"
 
 # 토큰이 만료되면 http://172.30.1.22:8000/kakao/login/ 에서 로그인해줘야함
 
