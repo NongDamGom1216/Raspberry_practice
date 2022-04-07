@@ -3,3 +3,4 @@ OPENCV/.DS_Store
 .DS_Store
 TCP_server/__pycache__/net.cpython-39.pyc
 *.pyc
+iot_server/access_token.txt
