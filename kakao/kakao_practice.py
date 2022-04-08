@@ -10,7 +10,7 @@ from pydub.playback import play
 URL = "https://kakaoi-newtone-openapi.kakao.com/v1/synthesize"
 HEADERS = {
     "Content-Type" : "application/xml",
-    "Authorization" : "KakaoAK 91993241356264156056f235e6563db3"
+    "Authorization" : "KakaoAK rest_api_key"
 }
 while True:
     data = input("문장을 입력하세요 : ")

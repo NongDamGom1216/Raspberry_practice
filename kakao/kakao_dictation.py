@@ -4,7 +4,7 @@ kakao_speech_url = "https://kakaoi-newtone-openapi.kakao.com/v1/recognize"
 
 # 샘플 다운로드 https://developers.kakao.com/docs/latest/ko/voice/rest-api
 
-rest_api_key = 'your API'
+rest_api_key = 'rest_api_key'
 headers = {
     "Content-Type": "application/octet-stream",
     # 바이트 타입
@@ -14,7 +14,7 @@ headers = {
 }
 
 # 음성 파일의 데이터 값
-with open('heykakao.wav', 'rb') as fp:
+with open('output.wav', 'rb') as fp:
     audio = fp.read()
     # res = requests.post(kakao_speech_url, headers=headers, data=audio)
 
